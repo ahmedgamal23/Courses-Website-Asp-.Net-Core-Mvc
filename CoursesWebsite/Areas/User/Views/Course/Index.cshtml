@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CoursesWebsite.ViewModels.CourseEnrollmentViewModel>
+
+@{
+    ViewData["Title"] = "View Courses";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .course-card {
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+            .course-card:hover {
+                transform: scale(1.05);
+            }
+
+            .course-card img {
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .course-card h5 {
+                font-size: 1.5rem;
+            }
+
+            .course-card p {
+                font-size: 1rem;
+            }
+
+        .enroll-btn {
+            margin-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">@ViewData["Title"]</h1>
+        <div class="row">
+            @foreach (var viewModel in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card course-card">
+                        <a asp-area="User" asp-controller="Video" asp-action="Index" class="text-decoration-none text-dark">
+                            <img src="~/@viewModel.Course!.ImagePath" class="card-img-top" alt="@viewModel.Course!.Title">
+                            <div class="card-body">
+                                <h5 class="card-title">@viewModel.Course!.Title</h5>
+                                <p class="card-text">@viewModel.Course!.Description</p>
+                            </div>
+                        </a>
+                        <div class="card-footer text-center">
+                            @if (!viewModel.isEnrolled)
+                            {
+                                <form asp-action="Enrollment" asp-controller="Course" method="post" style="display:inline;">
+                                    <input type="hidden" name="id" value="@viewModel.Course!.Id" />
+                                    <button type="submit" class="btn btn-outline-success enroll-btn">Enroll</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Already Enrolled</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

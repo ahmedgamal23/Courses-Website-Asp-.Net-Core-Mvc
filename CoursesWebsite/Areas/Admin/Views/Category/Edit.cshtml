@@ -1,0 +1,74 @@
+﻿@model CoursesWebsite.Models.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h1 class="text-center mb-4">@ViewData["Title"]</h1>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h4 class="card-title mb-3">Edit Category</h4>
+                <hr />
+
+                <!-- Image Preview Section -->
+                <div class="text-center mb-4">
+                    <img src="~/@Model.ImagePath" alt="Category Image" class="img-thumbnail" style="width: 150px; height: 150px;" />
+                </div>
+
+                <!-- Edit Form -->
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+                    <!-- ID (Disabled Input) -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Id" class="form-control" id="idInput" disabled="disabled" />
+                        <label asp-for="Id">ID</label>
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+
+                    <!-- Name Input -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Name" class="form-control" id="nameInput" placeholder="Enter category name" />
+                        <label asp-for="Name">Category Name</label>
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <!-- Description Input -->
+                    <div class="form-floating mb-3">
+                        <input asp-for="Description" class="form-control" id="descriptionInput" placeholder="Enter category description" />
+                        <label asp-for="Description">Category Description</label>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <!-- Image Upload -->
+                    <div class="mb-3">
+                        <label asp-for="ImageFile" class="form-label">Upload New Image</label>
+                        <input type="file" asp-for="ImageFile" class="form-control" />
+                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Back to List Button -->
+        <div class="mt-3 text-center">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

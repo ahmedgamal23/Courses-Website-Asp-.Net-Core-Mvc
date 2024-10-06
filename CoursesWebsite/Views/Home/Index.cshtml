@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Category>
+
+@{
+    ViewData["Title"] = "View Categories";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/css/userarea/category/category.css" />
+
+<div class="container">
+    <div>
+        <img src="~/assets/matrial/HomeGB.jpeg" class="header-image" alt="Header Image">
+    </div>
+    <h2 class="category-header">Our Courses</h2>
+    <div class="row">
+        @foreach (var category in Model)
+        {
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                @if (User.Identity!.IsAuthenticated)
+                {
+                    <a asp-area="User" asp-controller="Course" asp-action="Index" class="text-decoration-none text-dark">
+                        <div class="card category-card">
+                            <img src="~/@category.ImagePath" class="card-img-top" alt="@category.Name">
+                            <div class="card-body">
+                                <h5 class="card-title">@category.Name</h5>
+                            </div>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <div class="card category-card">
+                        <img src="~/@category.ImagePath" class="card-img-top" alt="@category.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@category.Name</h5>
+                        </div>
+                    </div>
+                    <a asp-page="/Account/Login" class="text-decoration-none text-dark">
+                    </a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

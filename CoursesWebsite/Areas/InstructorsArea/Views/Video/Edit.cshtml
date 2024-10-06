@@ -1,0 +1,74 @@
+﻿@model CoursesWebsite.Models.Video
+
+@{
+    ViewData["Title"] = "Edit Video";
+}
+
+<h1 class="text-center my-4">Edit Video</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form asp-action="Edit" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label">Video ID</label>
+                    <input asp-for="Id" class="form-control" disabled="disabled" />
+                    <span asp-validation-for="Id" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Title" class="control-label">Video Title</label>
+                    <input asp-for="Title" class="form-control" placeholder="Enter video title" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label">Description</label>
+                    <textarea asp-for="Description" class="form-control" rows="4" placeholder="Enter video description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UploadDate" class="control-label">Upload Date</label>
+                    <input asp-for="UploadDate" class="form-control" type="date" />
+                    <span asp-validation-for="UploadDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="VideoFile" class="control-label">Upload New Video (Optional)</label>
+                    <input type="file" asp-for="VideoFile" class="form-control" />
+                    <span asp-validation-for="VideoFile" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CourseId" class="control-label">Select Course</label>
+                    <select asp-for="CourseId" class="form-control" asp-items="ViewBag.Courses">
+                        <option value="">Select Course</option>
+                    </select>
+                    <span asp-validation-for="CourseId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group text-center">
+                    <input type="submit" value="Save Changes" class="btn btn-primary btn-lg mt-4" />
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6 mt-4">
+            <h4 class="text-center">Current Video Preview</h4>
+            <video src="~/@Model.VideoPath" width="100%" height="auto" controls class="border rounded"></video>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-4">
+    <a asp-action="Index" class="btn btn-dark">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
